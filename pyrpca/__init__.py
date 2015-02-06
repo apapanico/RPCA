@@ -5,4 +5,4 @@ __author__ = 'Alex Papanicolaou <alex.papanic@gmail.com>'
 __maintainer__ = 'Alex Papanicolaou <alex.papanic@gmail.com>'
 __all__ = []
 
-from rpca import *
+from rpca_alm import *

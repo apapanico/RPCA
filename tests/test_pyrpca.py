@@ -15,16 +15,19 @@ import numpy as np
 
 test_tol = 1e-7
 
-test_matrix = np.load("tests/data/test_matrix.csv")
+test_matrix = np.loadtxt("tests/data/test_matrix.csv",delimiter=',')
+test_matrix_L = np.loadtxt("tests/data/test_matrix_L.csv",delimiter=',')
+test_matrix_S = np.loadtxt("tests/data/test_matrix_S.csv",delimiter=',')
 
 
-class TestPyrpca(unittest.TestCase):
+class Test_rpca_alm(unittest.TestCase):
 
 	def setUp(self):
 		self.vector = np.array([0.97524828,  0.22805508, -1.09904465,  1.01910579, -0.77785785])
 		self.matrix1 = np.array([[ 0.18922838, -0.98083816],
 							   [-0.34132646, -0.31252715],
 							   [ 0.27660279, -0.03665899]])
+		self.matrix2 = test_matrix
 
 
 	def test_vector_shrink(self):
@@ -45,12 +48,13 @@ class TestPyrpca(unittest.TestCase):
 		np.testing.assert_allclose(Y,expected_Y,atol=test_tol)
 		np.testing.assert_allclose(r,expected_r)
 
-	def test_rpca(self):
-		
+	def test_rpca_alm(self):
+		expected_L = test_matrix_L
+		expected_S = test_matrix_S
+		expected_niter = 355
+		L,S,niter = pyrpca.rpca_alm(self.matrix2)
 
-		L,S,niter = rpca_alm(M,gamma=None,tol=1e-7,maxiter=500)
-
-		np.testing.assert_allclose(Y,expected_Y,atol=test_tol)
+		np.testing.assert_allclose(L,expected_L,atol=test_tol)
 		np.testing.assert_allclose(S,expected_S,atol=test_tol)
 		np.testing.assert_allclose(niter,expected_niter)
 
