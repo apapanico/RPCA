@@ -98,7 +98,7 @@ def matrix_shrink(X,tau,sv):
 
 	m = np.min(X.shape)
 
-	if choosvd(m,sv) == 1:
+	if use_rand_svd(m,sv):
 		U,S,V = randomized_svd(X,sv)
 	else:
 		U,S,V = LA.svd(X,full_matrices=0)
@@ -106,7 +106,7 @@ def matrix_shrink(X,tau,sv):
 	r = np.sum(S > tau);
 	Y = np.zeros(X.shape,dtype=X.dtype)
 	if r > 0:
-		Y = np.dot(U[:,:r],(S[:r]*V[:r,:].T).T,out=Y)
+		np.dot(U[:,:r]*(S[:r]-tau),V[:r,:],out=Y)
 
 	return (Y,r)
 
@@ -116,7 +116,7 @@ def matrix_shrink(X,tau,sv):
 def vector_shrink(X,tau):
 	return np.sign(X)*np.maximum(np.abs(X) - tau, 0);
 
-def choosvd(n_int,d_int):
+def use_rand_svd(n_int,d_int):
 	n = float(n_int)
 	d = float(d_int)
 	if n <= 100:
