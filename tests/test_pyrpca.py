@@ -15,7 +15,7 @@ import numpy as np
 
 test_tol = 1e-7
 
-
+test_matrix = np.load("tests/data/test_matrix.csv")
 
 
 class TestPyrpca(unittest.TestCase):
@@ -39,7 +39,7 @@ class TestPyrpca(unittest.TestCase):
 						   [ 0.01494755, -0.14124894],
 						   [ 0.00356539, -0.0336916 ]])
 		expected_r = 1
-		
+
 		Y,r = pyrpca.matrix_shrink(self.matrix1,tau,sv)
 
 		np.testing.assert_allclose(Y,expected_Y,atol=test_tol)
