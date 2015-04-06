@@ -1,9 +1,10 @@
 import numpy as np
 from numpy import linalg as LA
+from pypropack import svdp
 from sklearn.utils.extmath import randomized_svd
 from scipy.sparse import diags
 
-def rpca_alm(M,gamma=None,tol=1e-7,maxiter=500):
+def rpca_alm(M,gamma=None,tol=1e-7,maxiter=500,verbose=True,use_rand_svd=False):
 	"""
 	Finds the Principal Component Pursuit solution 
 	# %
@@ -68,7 +69,7 @@ def rpca_alm(M,gamma=None,tol=1e-7,maxiter=500):
 		S = vector_shrink(M - L + mu_inv*Y, gamma*mu_inv)
 		
 		# Shrink singular values 
-		L,r = matrix_shrink(M - S + mu_inv*Y, mu_inv,sv)
+		L,r = matrix_shrink(M - S + mu_inv*Y, mu_inv,sv, use_rand_svd=use_rand_svd)
 		if r < sv:
 			sv = np.min([r + 1, np.min(n)])
 		else:
@@ -94,12 +95,14 @@ def rpca_alm(M,gamma=None,tol=1e-7,maxiter=500):
 # Auxilliary functions
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-def matrix_shrink(X,tau,sv):
+def matrix_shrink(X,tau,sv,use_rand_svd=False):
 
 	m = np.min(X.shape)
 
-	if use_rand_svd(m,sv):
-		U,S,V = randomized_svd(X,sv)
+	if use_rand_svd:
+		U,S,V = randomized_svd(X,int(sv))
+	elif choosvd(m,sv):
+		U,S,V = svdp(X,int(sv))
 	else:
 		U,S,V = LA.svd(X,full_matrices=0)
 	
@@ -111,12 +114,10 @@ def matrix_shrink(X,tau,sv):
 	return (Y,r)
 
 
-
-
 def vector_shrink(X,tau):
 	return np.sign(X)*np.maximum(np.abs(X) - tau, 0);
 
-def use_rand_svd(n_int,d_int):
+def choosvd(n_int,d_int):
 	n = float(n_int)
 	d = float(d_int)
 	if n <= 100:
