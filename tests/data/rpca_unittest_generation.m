@@ -9,11 +9,12 @@ L=base*scales';
 S=round(0.25*randn(n)); 
 M=L+S;
 
-fileout = 'test/test_matrix';
+fileout = 'test_matrix';
 dlmwrite([fileout,'.csv'],M,'delimiter',',','precision','%.12f');
 
-
+tic
 [Lhat, Shat, niter]  = RPCA_ALM(M);
+toc
 
 dlmwrite([fileout,'_L.csv'],Lhat,'delimiter',',','precision','%.12f');
 dlmwrite([fileout,'_S.csv'],Shat,'delimiter',',','precision','%.12f');
@@ -29,11 +30,12 @@ L=base*scales';
 S=round(0.25*randn(n)); 
 M=L+S;
 
-fileout = 'test/larger_test_matrix';
+fileout = 'larger_test_matrix';
 dlmwrite([fileout,'.csv'],M,'delimiter',',','precision','%.12f');
 
-
+tic
 [Lhat, Shat, niter]  = RPCA_ALM(M);
+toc
 
 dlmwrite([fileout,'_L.csv'],Lhat,'delimiter',',','precision','%.12f');
 dlmwrite([fileout,'_S.csv'],Shat,'delimiter',',','precision','%.12f');
