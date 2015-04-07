@@ -6,3 +6,4 @@ __maintainer__ = 'Alex Papanicolaou <alex.papanic@gmail.com>'
 __all__ = []
 
 from rpca_alm import *
+from rpca_alm_old import *
