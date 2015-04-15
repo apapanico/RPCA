@@ -35,7 +35,10 @@ Installation
 ------------
 
 Requirements
-^^^^^^^^^^^^
+------------
+
++ Numpy
++ PyPROPACK (https://github.com/jakevdp/pypropack)
 
 Compatibility
 -------------
