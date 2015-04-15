@@ -44,8 +44,9 @@ Authors
 
 `pyrpca` was written by `Alex Papanicolaou <alex.papanic@gmail.com>`_.
 
+
 Reference
 ---------
 
-Candes, Li, Ma, and Wright. Robust Principal Component Analysis?  Submitted for publication, December 2009.
+Candès, E. J., Li, X., Ma, Y., & Wright, J. (2011). Robust principal component analysis?. Journal of the ACM (JACM), 58(3), 11.
 [http://statweb.stanford.edu/~candes/papers/RobustPCA.pdf](http://statweb.stanford.edu/~candes/papers/RobustPCA.pdf)
