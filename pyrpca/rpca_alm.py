@@ -106,6 +106,9 @@ def rpca_alm(M,gamma=None,tol=1e-7,maxiter=500,verbose=True,use_rand_svd=False):
 		np.add(T1,R,out=T1)
 
 	niter = k+1
+	if verbose:
+		print "iter: {0}, rank(L) {1}, |S|_0: {2}, stopCriterion {3}".format(k,r,np.sum(np.abs(S) > 0),stopCriterion)
+	
 	return (L,S,niter)
 
 
@@ -130,6 +133,7 @@ def matrix_shrink(X,tau,sv,out=None,use_rand_svd=False):
 		Z = np.dot(X[:,:r],V[:r,:],out=out)
 	else:
 		out[:] = 0
+		Z = out
 	return (Z,r)
 
 
