@@ -31,8 +31,6 @@ _,s_hat,_ = np.linalg.svd(Lhat,full_matrices=False)
 print s_hat[s_hat>1e-11]
 ```
 
-Installation
-------------
 
 Requirements
 ------------
@@ -40,14 +38,14 @@ Requirements
 + Numpy
 + PyPROPACK (https://github.com/jakevdp/pypropack)
 
-Compatibility
--------------
-
-Licence
--------
 
 Authors
 -------
 
 `pyrpca` was written by `Alex Papanicolaou <alex.papanic@gmail.com>`_.
-`pyrpca` was written by `Alex Papanicolaou <alex.papanic@gmail.com>`_.
+
+Reference
+---------
+
+Candes, Li, Ma, and Wright. Robust Principal Component Analysis?  Submitted for publication, December 2009.
+[http://statweb.stanford.edu/~candes/papers/RobustPCA.pdf](http://statweb.stanford.edu/~candes/papers/RobustPCA.pdf)
